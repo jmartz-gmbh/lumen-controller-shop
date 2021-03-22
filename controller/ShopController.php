@@ -15,10 +15,10 @@ class ShopController extends Controller
     public function all(Request $request){
         $connection = DB::table('shops');
 
-        $news = $connection->get();
+        $shops = $connection->get();
 
-        $this->addData('shops',$news);
-        $this->addMessage('success','All your News.');
+        $this->addData('shops',$shops);
+        $this->addMessage('success','All your Shops.');
 
         return $this->getResponse();
     }
@@ -28,16 +28,16 @@ class ShopController extends Controller
      * @return Response
      */
     public function view(Request $request, int $id){
-        $news = DB::table('shops')
+        $shop = DB::table('shops')
             ->where('id','=',$id);
 
-        $count = $news->count();
+        $count = $shop->count();
 
         if($count === 1){
-            $this->addData('shop',$news->first());
+            $this->addData('shop',$shop->first());
         }
         else{
-            $this->addMessage('success','News doesnt exists.');
+            $this->addMessage('success','Shop doesnt exists.');
         }
 
         return $this->getResponse();
