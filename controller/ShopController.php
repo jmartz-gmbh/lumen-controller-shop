@@ -27,9 +27,25 @@ class ShopController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function view(Request $request, int $id){
+    public function id(Request $request, int $id){
         $shop = DB::table('shops')
             ->where('id','=',$id);
+
+        $count = $shop->count();
+
+        if($count === 1){
+            $this->addData('shop',$shop->first());
+        }
+        else{
+            $this->addMessage('success','Shop doesnt exists.');
+        }
+
+        return $this->getResponse();
+    }
+
+    public function key(Request $request, string $key){
+        $shop = DB::table('shops')
+            ->where('key','=',$key);
 
         $count = $shop->count();
 
